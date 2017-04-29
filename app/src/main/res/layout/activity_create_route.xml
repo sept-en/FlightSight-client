@@ -21,6 +21,7 @@
             android:padding="@dimen/padding_tiny"
             android:inputType="none" />
         <ImageButton
+            android:id="@+id/pick_from_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_tiny"
@@ -44,8 +45,21 @@
             android:padding="@dimen/padding_tiny"
             android:inputType="none" />
         <ImageButton
+            android:id="@+id/pick_to_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_tiny"
             android:src="@drawable/ic_pin_drop_black_36dp"/>
+    </LinearLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <Button
+        android:id="@+id/create_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="@string/create"
+        android:layout_margin="@dimen/padding_small"/>
 </LinearLayout>
