@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">FlightSight</string>
     <string name="title_activity_flight_route">Flight Route</string>
+
+    <string name="from">From:</string>
+    <string name="to">To:</string>
 </resources>
