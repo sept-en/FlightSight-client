@@ -5,4 +5,7 @@
     <string name="from">From:</string>
     <string name="to">To:</string>
     <string name="create">Create</string>
+    <string name="startTime">Start time:</string>
+    <string name="finishTime">Finish time:</string>
+    <string name="distance">Distance:</string>
 </resources>

@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FlightSight.iml" filepath="$PROJECT_DIR$/FlightSight.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FlightSight-client.iml" filepath="$PROJECT_DIR$/FlightSight-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
