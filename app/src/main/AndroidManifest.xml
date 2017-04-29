@@ -32,14 +32,17 @@
         <activity
             android:name=".FlightRouteActivity"
             android:label="@string/title_activity_flight_route">
+        </activity>
+
+        <activity android:name=".PickLocationActivity" />
+
+        <activity android:name=".CreateRouteActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".CreateRouteActivity" />
     </application>
 
 </manifest>

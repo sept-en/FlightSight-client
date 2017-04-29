@@ -7,17 +7,17 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/padding_tiny"
-        android:gravity="center_vertical">
+        android:gravity="bottom">
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/from"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
+            android:text="@string/from"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        <EditText
+            android:id="@+id/from_text"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
             android:padding="@dimen/padding_tiny"
             android:inputType="none" />
         <ImageButton
@@ -33,15 +33,15 @@
         android:layout_margin="@dimen/padding_tiny"
         android:gravity="center_vertical">
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:text="@string/to"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
         <EditText
-            android:layout_width="wrap_content"
+            android:id="@+id/to_text"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
             android:padding="@dimen/padding_tiny"
             android:inputType="none" />
         <ImageButton
@@ -55,11 +55,21 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1" />
-    <Button
-        android:id="@+id/create_button"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="@string/create"
-        android:layout_margin="@dimen/padding_small"/>
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/create_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="@string/create"
+            android:layout_margin="@dimen/padding_small"/>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
+    </FrameLayout>
 </LinearLayout>

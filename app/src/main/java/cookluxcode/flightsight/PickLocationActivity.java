@@ -1,7 +1,10 @@
 package cookluxcode.flightsight;
 
-import android.support.v4.app.FragmentActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,18 +13,47 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class FlightRouteActivity extends FragmentActivity implements OnMapReadyCallback {
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ * Created by dan on 29.04.17.
+ */
+
+public class PickLocationActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
+
+    private static final String TAG = PickLocationActivity.class.getSimpleName();
+    public static final String LABEL_EXTRA = "labelExtra";
+    public static final String LAT_LNG_EXTRA = "latLng";
 
     private GoogleMap map;
+    private String label;
+    private LatLng location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flight_route);
+        setContentView(R.layout.activity_pick_location);
+        ButterKnife.bind(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        if (getIntent().hasExtra(LABEL_EXTRA))
+            label = getIntent().getStringExtra(LABEL_EXTRA);
         mapFragment.getMapAsync(this);
+    }
+
+    @OnClick(R.id.fab)
+    public void onFabClick() {
+        Log.d(TAG, "Fab click");
+        Intent data = new Intent();
+        if (location != null) {
+            data.putExtra(LAT_LNG_EXTRA, (Parcelable) location);
+            setResult(RESULT_OK, data);
+        } else {
+            setResult(RESULT_CANCELED);
+        }
+        finish();
     }
 
 
@@ -37,10 +69,13 @@ public class FlightRouteActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        map.setOnMapClickListener(this);
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    @Override
+    public void onMapClick(LatLng latLng) {
+        map.clear();
+        location = latLng;
+        map.addMarker(new MarkerOptions().position(latLng).title(label != null ? label : ""));
     }
 }
