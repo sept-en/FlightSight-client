@@ -2,6 +2,7 @@ package cookluxcode.flightsight.model;
 
 
 import com.google.gson.annotations.SerializedName;
+import com.raizlabs.android.dbflow.annotation.Table;
 
 import java.util.List;
 

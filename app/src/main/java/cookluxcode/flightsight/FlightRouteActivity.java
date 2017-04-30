@@ -9,10 +9,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
+import cookluxcode.flightsight.db.PlaceModel;
+import cookluxcode.flightsight.db.RouteModel;
+import cookluxcode.flightsight.db.RouteModel_Table;
+import cookluxcode.flightsight.model.Place;
 
 public class FlightRouteActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    public static final String ROUTE_ID_EXTRA = "routeId";
     private GoogleMap map;
+    private RouteModel routeModel = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +31,14 @@ public class FlightRouteActivity extends FragmentActivity implements OnMapReadyC
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        long id = getIntent().getLongExtra(ROUTE_ID_EXTRA, -1);
+        if (id != -1) {
+            routeModel = SQLite.select()
+                    .from(RouteModel.class)
+                    .where(RouteModel_Table.id.eq(id))
+                    .querySingle();
+        }
     }
 
 
@@ -38,9 +55,18 @@ public class FlightRouteActivity extends FragmentActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
 
+        map.clear();
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        if (routeModel != null) {
+            for (PlaceModel place : routeModel.getPlaceModels()) {
+                map.addMarker(
+                        new MarkerOptions()
+                                .position(new LatLng(place.getLatitude(), place.getLongitude()))
+                                .title(place.getName()));
+            }
+        }
+//        LatLng sydney = new LatLng(-34, 151);
+//        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -64,12 +66,32 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:text="@string/create"
+            android:visibility="visible"
             android:layout_margin="@dimen/padding_small"/>
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/progress_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="invisible"/>
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+            <TextView
+                android:id="@+id/places_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_tiny"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_gravity="center_vertical"
+                tools:text="Places loaded 23"/>
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/padding_tiny"
+                android:visibility="visible"/>
+        </LinearLayout>
+
     </FrameLayout>
 </LinearLayout>

@@ -7,11 +7,12 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface WikimediaAPI {
+public interface WikimediaApi {
     @GET("/w/api.php")
     Observable<String> getImageUrls(
+            @Query("format") String format, // json
             @Query("action") String action, // query,
             @Query("prop") String prop, // imageinfo
             @Query("iiprop") String iiprop, // url
-            @Query("title") String filename); // File:%your_file%
+            @Query("titles") String filename); // File:%your_file%
 }
