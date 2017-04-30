@@ -52,4 +52,6 @@ dependencies {
     compile "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflow_version}"
 
     compile 'org.json:json:20160212'
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

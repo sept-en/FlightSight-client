@@ -267,8 +267,12 @@ public class CreateRouteActivity extends Activity {
                 .map(new Function<String, String>() {
                     @Override
                     public String apply(@NonNull String s) throws Exception {
-                        JSONObject pages = new JSONObject(s).getJSONObject("query").getJSONObject("pages");
-                        return pages.getJSONObject(pages.keys().next()).getString("extract");
+                        try {
+                            JSONObject pages = new JSONObject(s).getJSONObject("query").getJSONObject("pages");
+                            return pages.getJSONObject(pages.keys().next()).getString("extract");
+                        } catch (JSONException ex) {
+                            return "";
+                        }
                     }
                 });
     }

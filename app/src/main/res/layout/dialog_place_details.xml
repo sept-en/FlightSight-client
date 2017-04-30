@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_large">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            tools:text="Title"/>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:src="@drawable/common_full_open_on_phone"/>
+        <TextView
+            android:id="@+id/text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu sollicitudin nisi, ut ullamcorper metus. Integer aliquam, purus ac vulputate sollicitudin, elit mi porta neque, eget fringilla neque lacus et enim. Morbi ac ex ultricies, finibus nisi at, tincidunt tortor. Donec dapibus, arcu ultrices blandit commodo, risus nisl mollis sem, sit amet pulvinar lectus ante quis eros. " />
+    </LinearLayout>
+</ScrollView>

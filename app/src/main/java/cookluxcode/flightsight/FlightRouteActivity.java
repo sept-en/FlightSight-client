@@ -1,16 +1,29 @@
 package cookluxcode.flightsight;
 
+import android.app.Dialog;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import cookluxcode.flightsight.db.PlaceModel;
 import cookluxcode.flightsight.db.RouteModel;
@@ -53,16 +66,37 @@ public class FlightRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        final Map<String, PlaceModel> places = new HashMap<>();
         map = googleMap;
 
         map.clear();
         // Add a marker in Sydney and move the camera
         if (routeModel != null) {
             for (PlaceModel place : routeModel.getPlaceModels()) {
+                places.put(place.getName(), place);
                 map.addMarker(
                         new MarkerOptions()
                                 .position(new LatLng(place.getLatitude(), place.getLongitude()))
-                                .title(place.getName()));
+                                .title(place.getName())).showInfoWindow();
+                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        PlaceModel place = places.get(marker.getTitle());
+
+                        Dialog dialog = new Dialog(FlightRouteActivity.this);
+                        dialog.setContentView(R.layout.dialog_place_details);
+
+                        ((TextView) dialog.findViewById(R.id.title)).setText(place.getName());
+                        ((TextView) dialog.findViewById(R.id.text)).setText(place.getDescription());
+                        ImageView imageView = (ImageView) dialog.findViewById(R.id.image);
+                        if (place.getImageUrl() != null)
+                            Picasso.with(FlightRouteActivity.this).load(place.getImageUrl()).into(imageView);
+                        dialog.setCanceledOnTouchOutside(true);
+                        dialog.show();
+
+                        return true;
+                    }
+                });
             }
         }
 //        LatLng sydney = new LatLng(-34, 151);
