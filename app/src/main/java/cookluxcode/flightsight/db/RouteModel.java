@@ -43,6 +43,8 @@ public class RouteModel {
         finishLng = finish.longitude;
     }
 
+
+
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "placeModels")
     public List<PlaceModel> getPlaceModels() {
         if (placeModels == null || placeModels.isEmpty()) {
@@ -53,6 +55,27 @@ public class RouteModel {
         }
         return placeModels;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public double getStartLat() {
+        return startLat;
+    }
+
+    public double getStartLng() {
+        return startLng;
+    }
+
+    public double getFinishLat() {
+        return finishLat;
+    }
+
+    public double getFinishLng() {
+        return finishLng;
+    }
+
 
     public void setId(long id) {
         this.id = id;
