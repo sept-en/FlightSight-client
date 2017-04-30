@@ -54,4 +54,6 @@ dependencies {
     compile 'org.json:json:20160212'
 
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    compile 'com.wdullaer:materialdatetimepicker:3.2.0'
 }

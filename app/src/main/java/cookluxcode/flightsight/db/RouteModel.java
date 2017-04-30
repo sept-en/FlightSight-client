@@ -30,17 +30,25 @@ public class RouteModel {
     @Column
     double finishLng;
 
+    @Column
+    String startTime;
+
+    @Column
+    String endTime;
+
     List<PlaceModel> placeModels;
 
     public RouteModel() {
 
     }
 
-    public RouteModel(LatLng start, LatLng finish) {
+    public RouteModel(LatLng start, LatLng finish, String startTime, String endTime) {
         startLat = start.latitude;
         startLng = start.longitude;
         finishLat = finish.latitude;
         finishLng = finish.longitude;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
 
@@ -76,6 +84,9 @@ public class RouteModel {
         return finishLng;
     }
 
+    public String getStartTime() { return startTime; }
+
+    public String getEndTime() { return endTime; }
 
     public void setId(long id) {
         this.id = id;

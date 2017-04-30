@@ -42,6 +42,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         viewHolder.routeFrom.setText(Utils.getLocalityName(context, from));
         viewHolder.routeTo.setText(Utils.getLocalityName(context, to));
         viewHolder.distance.setText(String.format("%.2f km", Utils.distance(from, to) / 1000));
+        viewHolder.startTime.setText(route.getStartTime() != null ? route.getStartTime() : "");
+        viewHolder.finishTime.setText(route.getEndTime() != null ? route.getEndTime() : "");
+
 
         viewHolder.root.setOnClickListener(new View.OnClickListener() {
             @Override

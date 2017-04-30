@@ -10,5 +10,8 @@
     <string name="finishTime">Finish time:</string>
     <string name="distance">Distance:</string>
 
+    <string name="start_time">Start time:</string>
+    <string name="finish_time">Finish time:</string>
+
     <string name="places_loaded">Places loaded %d</string>
 </resources>

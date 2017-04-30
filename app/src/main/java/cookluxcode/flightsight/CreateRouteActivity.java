@@ -21,8 +21,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -62,15 +65,21 @@ public class CreateRouteActivity extends Activity {
     @BindView(R.id.progress_bar) ProgressBar progressBar;
     @BindView(R.id.places_count) TextView placesCount;
     @BindView(R.id.progress_layout) LinearLayout progressLayout;
+    @BindView(R.id.start_time) EditText startTimeText;
+    @BindView(R.id.finish_time) EditText finishTimeText;
 
     LatLng from;
     LatLng to;
+    String startTime;
+    String endTime;
     Retrofit retrofit;
     ServerApi serverApi;
     WikidataApi wikidataApi;
     WikimediaApi wikimediaApi;
     WikipediaApi wikipediaApi;
     int requestId;
+
+
 
 
     @Override
@@ -122,6 +131,49 @@ public class CreateRouteActivity extends Activity {
         startActivityForResult(intent, REQUEST_CODE_TO_LOCATION);
     }
 
+    @OnClick(R.id.pick_start_time)
+    public void onStartTimeClick() {
+        DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, final int year, final int monthOfYear, final int dayOfMonth) {
+                        TimePickerDialog.newInstance(
+                                new TimePickerDialog.OnTimeSetListener() {
+                                    @Override
+                                    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                                        startTime = String.format("%4d-%2d-%2dT%2d:%2d:%2d", year, monthOfYear, dayOfMonth, hourOfDay, minute, second);
+                                        startTimeText.setText(startTime);
+
+                                    }
+                                },
+                                false).show(getFragmentManager(), null);
+                    }
+                }
+        ).show(getFragmentManager(), "startTimeDialog");
+    }
+
+    @OnClick(R.id.pick_finish_time)
+    public void onFinishTimeClick() {
+        DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, final int year, final int monthOfYear, final int dayOfMonth) {
+                        TimePickerDialog.newInstance(
+                                new TimePickerDialog.OnTimeSetListener() {
+                                    @Override
+                                    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                                        endTime = String.format("%4d-%02d-%02dT%02d:%02d:%02d", year, monthOfYear, dayOfMonth, hourOfDay, minute, second);
+                                        finishTimeText.setText(endTime);
+
+                                    }
+                                },
+                                false).show(getFragmentManager(), null);
+                    }
+                }
+        ).show(getFragmentManager(), "endTimeDialog");
+    }
+
+
     @OnClick(R.id.create_button)
     public void onCreateClick() {
         Log.d(TAG, "onCreateClick()");
@@ -130,7 +182,7 @@ public class CreateRouteActivity extends Activity {
             return;
         }
 
-        final RouteModel route = new RouteModel(from, to);
+        final RouteModel route = new RouteModel(from, to, startTime, endTime);
         final long id = FlowManager.getModelAdapter(RouteModel.class).insert(route);
         final AtomicInteger count = new AtomicInteger(0);
 
@@ -183,6 +235,7 @@ public class CreateRouteActivity extends Activity {
                                 Intent intent = new Intent(CreateRouteActivity.this, FlightRouteActivity.class);
                                 intent.putExtra(FlightRouteActivity.ROUTE_ID_EXTRA, id);
                                 startActivity(intent);
+                                finish();
                             }
                         },
                         new Consumer<Disposable>() {
